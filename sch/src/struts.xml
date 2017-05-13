@@ -8,7 +8,14 @@
             <result name="failure">/Login.jsp</result>
         </action>
         <action name="personnel" class="com.lw.action.PersonnelAction">
-
+        </action>
+        <action name="resources" class="com.lw.action.ResourcesAction">
+        </action>
+        <action name="role" class="com.lw.action.RoleAction">
+        </action>
+        <action name="depart" class="com.lw.action.DepartmentAction">
+        </action>
+        <action name="clas" class="com.lw.action.ClassAction">
         </action>
     </package>
     <!--<package name="json" extends="json-default">-->
