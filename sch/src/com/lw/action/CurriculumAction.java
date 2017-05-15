@@ -1,13 +1,12 @@
 package com.lw.action;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.lw.bean.LwOptCurriculum;
 import com.lw.bean.LwOptDepartment;
+import com.lw.serivce.CurriculumService;
 import com.lw.serivce.DepartmentService;
 import com.lw.util.ResporeUtil;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,47 +16,51 @@ import java.util.List;
 /**
  * Created by ThundeRobot on 2017/5/13.
  */
-public class DepartmentAction {
+public class CurriculumAction {
 
     @Autowired
-    private DepartmentService departmentService;
+    private CurriculumService departmentService;
     private HttpServletResponse response = ServletActionContext.getResponse();
     private HttpServletRequest request = ServletActionContext.getRequest();
 
-    public void findAllDe() throws IOException {
+    public void findAllCurr() throws IOException {
         List list=departmentService.findAll();
         ResporeUtil.write(response,ResporeUtil.gson.toJson(list));
     }
 
-    public void saveDe() throws IOException {
+    public void saveCurr() throws IOException {
         String name=ResporeUtil.getPram(request,"name");
-        LwOptDepartment lw=new LwOptDepartment();
-        lw.setDepartmentName(name);
+        String credit=ResporeUtil.getPram(request,"credit");
+        LwOptCurriculum lw=new LwOptCurriculum();
+        lw.setCurriculumName(name);
+        lw.setCurriculumCredit(Double.parseDouble(credit));
         departmentService.save(lw);
         ResporeUtil.write(response,"1");
     }
 
-    public void saveOrUpDe() throws IOException {
+    public void saveOrUpCurr() throws IOException {
         String id=ResporeUtil.getPram(request,"id");
         String name=ResporeUtil.getPram(request,"name");
-        LwOptDepartment lw=new LwOptDepartment();
-        lw.setDepartmentName(name);
-        lw.setDepartmentId(Integer.parseInt(id));
+        String credit=ResporeUtil.getPram(request,"credit");
+        LwOptCurriculum lw=new LwOptCurriculum();
+        lw.setCurriculumName(name);
+        lw.setCurriculumCredit(Double.parseDouble(credit));
+        lw.setCurriculumId(Integer.parseInt(id));
         departmentService.saveOrUpdate(lw);
         ResporeUtil.write(response,"1");
     }
 
-    public void deleteDe() throws IOException {
+    public void deleteCurr() throws IOException {
         String id=ResporeUtil.getPram(request,"id");
-        LwOptDepartment lw=new LwOptDepartment();
-        lw.setDepartmentId(Integer.parseInt(id));
+        LwOptCurriculum lw=new LwOptCurriculum();
+        lw.setCurriculumId(Integer.parseInt(id));
         departmentService.delete(lw);
         ResporeUtil.write(response,"1");
     }
 
-    public void findByName() throws IOException {
+    public void findCurrByName() throws IOException {
         String name=ResporeUtil.getPram(request,"name");
-        List list=departmentService.findByP("departmentName",name);
+        List list=departmentService.findByP("curriculumName",name);
         ResporeUtil.write(response,ResporeUtil.gson.toJson(list));
     }
 
